@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  app-server:
+    build: ./
+    ports:
+      - "8090:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1s
+      timeout: 1s
+      retries: 3
+    links:
+      - korona
+    depends_on:
+      - korona
+  korona:
+    image: korona-info
+    expose:
+      - "8080"
+
+
